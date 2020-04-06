@@ -30,7 +30,7 @@ from ds_ctcdecoder import ctc_beam_search_decoder, Scorer
 from .evaluate import evaluate
 from six.moves import zip, range
 from .util.config import Config, initialize_globals
-from .util.checkpoints import load_or_init_graph_for_training, load_graph
+from .util.checkpoints import load_or_init_graph_for_training, load_graph_for_evaluation
 from .util.feeding import create_dataset, samples_to_mfccs, audiofile_to_features
 from .util.flags import create_flags, FLAGS
 from .util.helpers import check_ctcdecoder_version, ExceptionBox
@@ -508,11 +508,7 @@ def train():
         tfv1.get_default_graph().finalize()
 
         # Load checkpoint or initialize variables
-        if FLAGS.load == 'auto':
-            method_order = ['best', 'last', 'init']
-        else:
-            method_order = [FLAGS.load]
-        load_or_init_graph_for_training(session, method_order)
+        load_or_init_graph_for_training(session, FLAGS.train_load)
 
         def run_set(set_name, epoch, init_op, dataset=None):
             is_train = set_name == 'train'
@@ -773,11 +769,7 @@ def export():
 
     with tf.Session() as session:
         # Restore variables from checkpoint
-        if FLAGS.load == 'auto':
-            method_order = ['best', 'last']
-        else:
-            method_order = [FLAGS.load]
-        load_graph(session, method_order)
+        load_graph_for_evaluation(session, FLAGS.evaluate_load)
 
         output_filename = FLAGS.export_file_name + '.pb'
         if FLAGS.remove_export:
@@ -857,11 +849,7 @@ def do_single_file_inference(input_file_path):
         inputs, outputs, _ = create_inference_graph(batch_size=1, n_steps=-1)
 
         # Restore variables from training checkpoint
-        if FLAGS.load == 'auto':
-            method_order = ['best', 'last']
-        else:
-            method_order = [FLAGS.load]
-        load_graph(session, method_order)
+        load_graph_for_evaluation(session, FLAGS.evaluate_load)
 
         features, features_len = audiofile_to_features(input_file_path)
         previous_state_c = np.zeros([1, Config.n_cell_dim])

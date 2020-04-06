@@ -31,7 +31,7 @@ for LOAD in 'init' 'last' 'auto'; do
     echo "########################################################"
     python -u DeepSpeech.py --noshow_progressbar --noearly_stop \
        --alphabet_config_path "./data/alphabet.txt" \
-       --load "$LOAD" \
+       --load_train "$LOAD" \
        --train_files  "${ldc93s1_csv}" --train_batch_size 1  \
        --dev_files  "${ldc93s1_csv}" --dev_batch_size 1 \
        --test_files  "${ldc93s1_csv}" --test_batch_size 1 \
@@ -45,7 +45,7 @@ for LOAD in 'init' 'last' 'auto'; do
     echo "##############################################################################"
     python -u DeepSpeech.py --noshow_progressbar --noearly_stop \
            --alphabet_config_path "./data/alphabet.txt" \
-           --load "$LOAD" \
+           --load_train "$LOAD" \
            --train_files  "${ldc93s1_csv}" --train_batch_size 1  \
            --dev_files  "${ldc93s1_csv}" --dev_batch_size 1 \
            --test_files  "${ldc93s1_csv}" --test_batch_size 1 \
@@ -61,7 +61,7 @@ for LOAD in 'init' 'last' 'auto'; do
     python -u DeepSpeech.py --noshow_progressbar --noearly_stop \
            --drop_source_layers 1 \
            --alphabet_config_path "${ru_dir}/alphabet.ru" \
-           --load 'last' \
+           --load_train 'last' \
            --train_files  "${ru_csv}" --train_batch_size 1  \
            --dev_files  "${ru_csv}" --dev_batch_size 1 \
            --test_files  "${ru_csv}" --test_batch_size 1 \
@@ -83,7 +83,7 @@ for LOAD in 'init' 'last' 'auto'; do
     echo "########################################################"
     python -u DeepSpeech.py --noshow_progressbar --noearly_stop \
        --alphabet_config_path "./data/alphabet.txt" \
-       --load "$LOAD" \
+       --load_train "$LOAD" \
        --train_files  "${ldc93s1_csv}" --train_batch_size 1  \
        --dev_files  "${ldc93s1_csv}" --dev_batch_size 1 \
        --test_files  "${ldc93s1_csv}" --test_batch_size 1 \
@@ -98,7 +98,7 @@ for LOAD in 'init' 'last' 'auto'; do
     echo "##############################################################################"
     python -u DeepSpeech.py --noshow_progressbar --noearly_stop \
            --alphabet_config_path "./data/alphabet.txt" \
-           --load "$LOAD" \
+           --load_train "$LOAD" \
            --train_files  "${ldc93s1_csv}" --train_batch_size 1  \
            --dev_files  "${ldc93s1_csv}" --dev_batch_size 1 \
            --test_files  "${ldc93s1_csv}" --test_batch_size 1 \
@@ -114,7 +114,7 @@ for LOAD in 'init' 'last' 'auto'; do
     python -u DeepSpeech.py --noshow_progressbar --noearly_stop \
            --drop_source_layers 1 \
            --alphabet_config_path "${ru_dir}/alphabet.ru" \
-           --load 'last' \
+           --load_train 'last' \
            --train_files  "${ru_csv}" --train_batch_size 1  \
            --dev_files  "${ru_csv}" --dev_batch_size 1 \
            --test_files  "${ru_csv}" --test_batch_size 1 \
